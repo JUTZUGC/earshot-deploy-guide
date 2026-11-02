@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "earshot-guide": {
+      "command": "node",
+      "args": [
+        "mcp-server.mjs"
+      ]
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "earshot",
+    "nameCn": "earshot",
+    "repoName": "earshot-deploy-guide",
+    "oneLiner": "把声音变成 agent 能读的证据：像什么、像不像、在哪一秒、是不是合成的",
+    "officialRepo": "https://github.com/Leonxlnx/earshot",
+    "officialDocs": "https://github.com/Leonxlnx/earshot#install",
+    "stars": "3484",
+    "license": "MIT",
+    "highlights": [
+      "describe：用文字说清一个声音像什么",
+      "match / rank：按描述挑最合适的音频",
+      "find：在长录音里定位最佳片段",
+      "realness：判断真实录制还是合成",
+      "timeline / sheet：整片听感时间线与标注图",
+      "forge：用代码造声并按听感迭代"
+    ],
+    "mcpSupport": "自带 MCP server（`python -m earshot mcp`），把同一套分析工具提供给 Claude Code 等客户端；本仓库的 MCP 只提供安装步骤与常见问题。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-11-02",
+    "verification": [
+      [
+        "README 确认 Python 3.10+、ffmpeg 依赖与纯 CPU 运行",
+        "已核对 2026-11-02"
+      ],
+      [
+        "确认 MCP 注册方式与 `doctor --load` 自检命令",
+        "已核对 2026-11-02"
+      ],
+      [
+        "未实测安装、模型加载与音频分析",
+        "说明 2026-11-02"
+      ],
+      [
+        "MCP 冒烟：initialize / tools/list 返回 get_guide、search_guide、get_project_info",
+        "已验证 2026-11-02"
+      ],
+      [
+        "非目标宿主调用 get_guide 被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-11-02"
+      ]
+    ],
+    "deploy": {
+      "type": "script",
+      "requires": [
+        "python"
+      ],
+      "steps": [
+        "git clone https://github.com/Leonxlnx/earshot.git",
+        "cd earshot && python -m venv .venv",
+        ".venv/bin/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu",
+        ".venv/bin/python -m pip install -e \".[mcp,llm,dev]\"",
+        ".venv/bin/python -m earshot doctor --load",
+        "echo \"装好后用 .venv/bin/python -m earshot describe 试一下\""
+      ],
+      "stepsPs": [
+        "git clone https://github.com/Leonxlnx/earshot.git",
+        "Set-Location earshot",
+        "python -m venv .venv",
+        ".venv\\Scripts\\python -m pip install torch --index-url https://download.pytorch.org/whl/cpu",
+        ".venv\\Scripts\\python -m pip install -e \".[mcp,llm,dev]\"",
+        ".venv\\Scripts\\python -m earshot doctor --load",
+        "Write-Host \"装好后用 .venv\\Scripts\\python -m earshot describe 试一下\""
+      ],
+      "source": "https://github.com/Leonxlnx/earshot#install"
+    },
+    "pitfalls": [
+      "命令报 ffmpeg 错：先装 ffmpeg 并重开终端",
+      "首次调用超时：等模型加载，或改用 MCP 常驻",
+      "MCP 连不上：用虚拟环境里 python 的绝对路径注册",
+      "内存不足：减少线程数，例如 `EARSHOT_THREADS=2`",
+      "音频读不了：确认格式受支持，先用 ffmpeg 转码",
+      "结果不稳定：同一文件多次分析取一致结论，弱匹配别硬用",
+      "上传顾虑：不要开 `--yes-upload`，除非确实需要云端点评"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/earshot-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/earshot-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "earshot",
+    "earshot 安装",
+    "AI 听声音",
+    "音频 分析 工具",
+    "音效 生成 代码",
+    "MCP 音频分析",
+    "视频 声音 评分",
+    "earshot 教程",
+    "本地 音频 识别",
+    "earshot deploy guide"
+  ],
+  "topics": [
+    "audio-analysis",
+    "mcp",
+    "sound-design",
+    "local-first",
+    "python",
+    "earshot"
+  ]
+}
